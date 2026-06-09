@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bodnár Gergő Zsolt – Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #080c14;
+    --bg-2: #0d1220;
+    --bg-glass: rgba(13, 18, 32, 0.65);
+    --border-glass: rgba(99, 141, 255, 0.12);
+    --border-glow: rgba(99, 141, 255, 0.25);
+    --blue-primary: #638dff;
+    --blue-soft: #4a6fd4;
+    --purple: #9b6dff;
+    --purple-soft: rgba(155, 109, 255, 0.15);
+    --text-primary: #e8edf8;
+    --text-secondary: #8a95b0;
+    --text-muted: #4a5470;
+    --max-w: 1100px;
+    --font-mono: 'Space Mono', monospace;
+    --font-sans: 'Inter', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Canvas ─────────────────────────────────────── */
+  #bg-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ── Layout ──────────────────────────────────────── */
+  .wrap {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Nav ─────────────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--bg-glass);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border-glass);
+    padding: 0 32px;
+  }
+
+  .nav-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-logo {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--blue-primary);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--text-secondary); }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--blue-primary); }
+
+  /* ── Hero ────────────────────────────────────────── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 64px;
+  }
+
+  .hero-content {
+    max-width: 680px;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--blue-primary);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--blue-primary);
+    opacity: 0.6;
+  }
+
+  .hero-name {
+    font-size: clamp(42px, 6vw, 80px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+  }
+
+  .hero-name .accent {
+    background: linear-gradient(135deg, var(--blue-primary), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-title {
+    font-size: clamp(16px, 2vw, 22px);
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+    line-height: 1.4;
+  }
+
+  .hero-bio {
+    font-size: 15px;
+    color: var(--text-secondary);
+    max-width: 520px;
+    margin-bottom: 48px;
+    line-height: 1.8;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 28px;
+    background: var(--blue-primary);
+    color: #080c14;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 28px;
+    border: 1px solid var(--border-glow);
+    color: var(--blue-primary);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    border-radius: 6px;
+    background: transparent;
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  }
+
+  .btn-ghost:hover {
+    background: rgba(99, 141, 255, 0.08);
+    border-color: var(--blue-primary);
+    transform: translateY(-1px);
+  }
+
+  /* ── Divider ─────────────────────────────────────── */
+  .section-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-glass), transparent);
+    margin: 80px 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Section headings ────────────────────────────── */
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--blue-primary);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    opacity: 0.8;
+  }
+
+  .section-heading {
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .section-sub {
+    color: var(--text-secondary);
+    font-size: 15px;
+    max-width: 500px;
+    margin-bottom: 56px;
+    line-height: 1.75;
+  }
+
+  /* ── Focus areas ─────────────────────────────────── */
+  #focus { padding: 80px 0; }
+
+  .focus-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .focus-card {
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: 12px;
+    padding: 32px 28px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: border-color 0.3s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .focus-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.3s;
+    border-radius: 12px;
+  }
+
+  .focus-card:nth-child(1)::before { background: radial-gradient(ellipse at top left, rgba(99,141,255,0.08), transparent 60%); }
+  .focus-card:nth-child(2)::before { background: radial-gradient(ellipse at top left, rgba(155,109,255,0.08), transparent 60%); }
+  .focus-card:nth-child(3)::before { background: radial-gradient(ellipse at top left, rgba(99,200,255,0.08), transparent 60%); }
+  .focus-card:nth-child(4)::before { background: radial-gradient(ellipse at top left, rgba(99,255,180,0.06), transparent 60%); }
+
+  .focus-card:hover {
+    border-color: var(--border-glow);
+    transform: translateY(-4px);
+  }
+
+  .focus-card:hover::before { opacity: 1; }
+
+  .focus-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 22px;
+  }
+
+  .icon-blue  { background: rgba(99,141,255,0.12); }
+  .icon-purple{ background: rgba(155,109,255,0.12); }
+  .icon-cyan  { background: rgba(99,200,255,0.12); }
+  .icon-green { background: rgba(99,255,180,0.10); }
+
+  .focus-title {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+
+  .focus-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.75;
+  }
+
+  .focus-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 20px;
+  }
+
+  .tag {
+    font-size: 11px;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    border: 1px solid var(--border-glass);
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.04em;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .focus-card:hover .tag {
+    color: var(--text-secondary);
+    border-color: var(--border-glow);
+  }
+
+  /* ── About strip ─────────────────────────────────── */
+  #about { padding: 80px 0; }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  @media (max-width: 700px) {
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .nav-links { display: none; }
+    .focus-grid { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+  }
+
+  .about-text p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    line-height: 1.85;
+  }
+
+  .about-text p strong {
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border-glass);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .stat-item {
+    background: var(--bg-2);
+    padding: 28px 20px;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-family: var(--font-mono);
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--blue-primary);
+    letter-spacing: -0.02em;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ── Contact ─────────────────────────────────────── */
+  #contact { padding: 80px 0 120px; }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 620px;
+  }
+
+  .contact-card {
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: 12px;
+    padding: 28px 24px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: border-color 0.2s, transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .contact-card:hover {
+    border-color: var(--blue-primary);
+    transform: translateY(-3px);
+  }
+
+  .contact-card-type {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .contact-card-value {
+    font-size: 14px;
+    color: var(--blue-primary);
+    word-break: break-all;
+  }
+
+  /* ── Footer ─────────────────────────────────────── */
+  footer {
+    border-top: 1px solid var(--border-glass);
+    padding: 32px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  footer p {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+  }
+
+  /* ── Scroll fade-in ──────────────────────────────── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fade-up { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">BGZ<span>.dev</span></a>
+    <ul class="nav-links">
+      <li><a href="#focus">Szakterületek</a></li>
+      <li><a href="#about">Rólam</a></li>
+      <li><a href="#contact">Kapcsolat</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="wrap">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Ipari informatikai technikus</div>
+      <h1 class="hero-name">
+        Bodnár<br><span class="accent">Gergő Zsolt</span>
+      </h1>
+      <p class="hero-title">Gépészmérnök hallgató · ELTE · Budapest</p>
+      <p class="hero-bio">
+        Szoftver és hardver határán dolgozom – webfejlesztéstől robotikán át
+        mikroelektronikáig. Szeretem az olyan rendszereket, amelyek ténylegesen
+        csinálnak valamit a fizikai világban.
+      </p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn-primary">Kapcsolatfelvétel →</a>
+        <a href="#focus" class="btn-ghost">Projektjeim ↓</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOCUS AREAS -->
+<section id="focus">
+  <div class="wrap">
+    <div class="fade-up">
+      <p class="section-label">Szakterületek</p>
+      <h2 class="section-heading">Mit csinálok</h2>
+      <p class="section-sub">Négy terület, ahol a precizitás és a kreativitás találkozik.</p>
+    </div>
+
+    <div class="focus-grid">
+      <div class="focus-card fade-up">
+        <div class="focus-icon icon-blue">🌐</div>
+        <h3 class="focus-title">Webfejlesztés</h3>
+        <p class="focus-desc">Letisztult landing page-ek és reszponzív weboldalak tervezése és megvalósítása, hangsúlyt fektetve a teljesítményre és a modern vizuális élményre.</p>
+        <div class="focus-tags">
+          <span class="tag">HTML/CSS/JS</span>
+          <span class="tag">Reszponzív</span>
+          <span class="tag">UI/UX</span>
+        </div>
+      </div>
+
+      <div class="focus-card fade-up">
+        <div class="focus-icon icon-purple">🤖</div>
+        <h3 class="focus-title">Robotika</h3>
+        <p class="focus-desc">Robotkarok és autonóm mozgásvezérlő rendszerek tervezése, mechanikai szimulációk és valós idejű irányítólogika programozása.</p>
+        <div class="focus-tags">
+          <span class="tag">Kinematika</span>
+          <span class="tag">Szervó</span>
+          <span class="tag">C/C++</span>
+        </div>
+      </div>
+
+      <div class="focus-card fade-up">
+        <div class="focus-icon icon-cyan">⚡</div>
+        <h3 class="focus-title">Elektronika</h3>
+        <p class="focus-desc">Mikrokontrolleres projektek fejlesztése Arduino, ESP32 és STM32 platformokon – szenzorok, meghajtók és egyedi áramkörök integrálásával.</p>
+        <div class="focus-tags">
+          <span class="tag">Arduino</span>
+          <span class="tag">ESP32</span>
+          <span class="tag">STM32</span>
+        </div>
+      </div>
+
+      <div class="focus-card fade-up">
+        <div class="focus-icon icon-green">⚙️</div>
+        <h3 class="focus-title">Automatizálás</h3>
+        <p class="focus-desc">Ipari folyamatok intelligens összehangolása, PLC-logika és beágyazott rendszerek tervezése hatékony gyártási és vezérlési megoldásokhoz.</p>
+        <div class="focus-tags">
+          <span class="tag">PLC</span>
+          <span class="tag">SCADA</span>
+          <span class="tag">IoT</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="section-divider"></div></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="fade-up">
+        <p class="section-label">Rólam</p>
+        <h2 class="section-heading">Profil</h2>
+        <div class="about-text">
+          <p>
+            <strong>Ipari informatikai technikusként</strong> végzett, most az ELTE Gépészmérnöki karán folytatom tanulmányaimat. Érdeklődésem a szoftveres és hardveres világ metszéspontján van.
+          </p>
+          <p>
+            Hiszem, hogy a legjobb mérnöki megoldások ott születnek, ahol a kód ténylegesen mozgat valamit – fogaskereket, szervót, vagy akár egy egész gyártósort.
+          </p>
+          <p>
+            Szabadidőmben új mikrokontroller-projekteken dolgozom, és aktívan fejlesztem a web-képességeimet, hogy a vizuális réteg is mérnöki precizitással készüljön el.
+          </p>
+        </div>
+      </div>
+
+      <div class="fade-up">
+        <div class="stats-row">
+          <div class="stat-item">
+            <span class="stat-number">4+</span>
+            <span class="stat-label">Év tapasztalat</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">3×</span>
+            <span class="stat-label">Platform</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">∞</span>
+            <span class="stat-label">Kíváncsiság</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="section-divider"></div></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="fade-up">
+      <p class="section-label">Kapcsolat</p>
+      <h2 class="section-heading">Írj nekem</h2>
+      <p class="section-sub">Legyen szó projektötletről, együttműködésről vagy csak egy mérnöki kérdésről – szívesen válaszolok.</p>
+    </div>
+
+    <div class="contact-grid fade-up">
+      <a href="mailto:gergobodnar754@gmail.com" class="contact-card">
+        <span class="contact-card-type">✉ E-mail</span>
+        <span class="contact-card-value">gergobodnar754@gmail.com</span>
+      </a>
+      <a href="tel:+36309686577" class="contact-card">
+        <span class="contact-card-type">📞 Telefon</span>
+        <span class="contact-card-value">+36 30 968 6577</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Bodnár Gergő Zsolt &nbsp;·&nbsp; Kézzel írott kód, gépi precizitással.</p>
+</footer>
+
+<script>
+/* ── Particle Network ──────────────────────────────────── */
+(function() {
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+
+  let W, H, particles, mouse = { x: null, y: null };
+
+  const CONFIG = {
+    count: 90,
+    maxDist: 140,
+    speed: 0.35,
+    radius: 1.8,
+    colorPrimary: [99, 141, 255],
+    colorSecondary: [155, 109, 255],
+    mouseRadius: 160,
+  };
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function randBetween(a, b) { return a + Math.random() * (b - a); }
+
+  function createParticle() {
+    const angle = Math.random() * Math.PI * 2;
+    const speed = randBetween(0.15, CONFIG.speed);
+    const colorMix = Math.random();
+    return {
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      r: randBetween(1, CONFIG.radius),
+      colorMix,
+    };
+  }
+
+  function init() {
+    particles = Array.from({ length: CONFIG.count }, createParticle);
+  }
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  function particleColor(p, alpha) {
+    const r = Math.round(lerp(CONFIG.colorPrimary[0], CONFIG.colorSecondary[0], p.colorMix));
+    const g = Math.round(lerp(CONFIG.colorPrimary[1], CONFIG.colorSecondary[1], p.colorMix));
+    const b = Math.round(lerp(CONFIG.colorPrimary[2], CONFIG.colorSecondary[2], p.colorMix));
+    return `rgba(${r},${g},${b},${alpha})`;
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    /* update */
+    for (const p of particles) {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0) p.x = W;
+      if (p.x > W) p.x = 0;
+      if (p.y < 0) p.y = H;
+      if (p.y > H) p.y = 0;
+
+      /* subtle mouse repel */
+      if (mouse.x !== null) {
+        const dx = p.x - mouse.x, dy = p.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < CONFIG.mouseRadius) {
+          const force = (1 - dist / CONFIG.mouseRadius) * 0.012;
+          p.vx += (dx / dist) * force;
+          p.vy += (dy / dist) * force;
+          const spd = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+          if (spd > CONFIG.speed * 2) {
+            p.vx = (p.vx / spd) * CONFIG.speed * 2;
+            p.vy = (p.vy / spd) * CONFIG.speed * 2;
+          }
+        }
+      }
+    }
+
+    /* connections */
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const a = particles[i], b = particles[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < CONFIG.maxDist) {
+          const alpha = (1 - dist / CONFIG.maxDist) * 0.22;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          const mixR = Math.round(lerp(CONFIG.colorPrimary[0], CONFIG.colorSecondary[0], (a.colorMix + b.colorMix) / 2));
+          const mixG = Math.round(lerp(CONFIG.colorPrimary[1], CONFIG.colorSecondary[1], (a.colorMix + b.colorMix) / 2));
+          const mixB = Math.round(lerp(CONFIG.colorPrimary[2], CONFIG.colorSecondary[2], (a.colorMix + b.colorMix) / 2));
+          ctx.strokeStyle = `rgba(${mixR},${mixG},${mixB},${alpha})`;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        }
+      }
+    }
+
+    /* dots */
+    for (const p of particles) {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = particleColor(p, 0.55);
+      ctx.fill();
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+  window.addEventListener('mouseleave', () => { mouse.x = null; mouse.y = null; });
+  window.addEventListener('resize', () => { resize(); init(); });
+
+  resize();
+  init();
+  draw();
+})();
+
+/* ── Scroll fade-in ──────────────────────────────────── */
+(function() {
+  const els = document.querySelectorAll('.fade-up');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), 60 * i);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  els.forEach(el => io.observe(el));
+})();
+</script>
+</body>
+</html>
