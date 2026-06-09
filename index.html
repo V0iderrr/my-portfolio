@@ -8,94 +8,96 @@
 </head>
 <body>
 
-    <!-- Mozgó háttér vászon (Canvas) -->
     <canvas id="bg-canvas"></canvas>
 
-    <!-- Navigáció -->
-    <nav>
-        <div class="logo">BGZ<span>.tech</span></div>
-        <ul>
-            <li><a href="#about">Rólam</a></li>
-            <li><a href="#projects">Projektek</a></li>
-            <li><a href="#contact">Kapcsolat</a></li>
-        </ul>
-    </nav>
+    <div class="page-wrapper">
 
-    <!-- Hero / Bemutatkozás -->
-    <header id="about">
-        <div class="hero-content">
-            <p class="tagline">Ipari Informatikai Technikus & Jövőbeli Gépészmérnök</p>
-            <h1>Bodnár Gergő Zsolt</h1>
-            <p class="description">
-                Szeptembertől az <strong>ELTE gépészmérnök hallgatója</strong>. Weboldalak és landing page-ek fejlesztésével foglalkozom, miközben a hardver és szoftver határterületein alkotok: az automatizálás, a mikrokontrollerek és a robotika világa hajt.
-            </p>
-            <div class="hero-cta">
-                <a href="#projects" class="btn btn-primary">Projektek megtekintése</a>
-                <a href="#contact" class="btn btn-secondary">Kapcsolat</a>
+        <nav>
+            <div class="nav-container">
+                <div class="logo">BGZ<span>.tech</span></div>
+                <ul>
+                    <li><a href="#about">Rólam</a></li>
+                    <li><a href="#projects">Projektek</a></li>
+                    <li><a href="#contact">Kapcsolat</a></li>
+                </ul>
             </div>
-        </div>
-    </header>
+        </nav>
 
-    <!-- Projektek szekció -->
-    <section id="projects">
-        <h2 class="section-title">Futó Projektek & Kompetenciák</h2>
-        <div class="project-grid">
-            
-            <div class="project-card">
-                <div class="card-icon">💻</div>
-                <h3>Webfejlesztés</h3>
-                <p>Modern, letisztult landing page-ek és reszponzív weboldalak tervezése és kódolása a legújabb technológiákkal.</p>
+        <header id="about">
+            <div class="hero-content">
+                <p class="tagline">Ipari Informatikai Technikus & Jövőbeli Gépészmérnök</p>
+                <h1>Bodnár Gergő Zsolt</h1>
+                <p class="description">
+                    Szeptembertől az <strong>ELTE gépészmérnök hallgatója</strong>. Weboldalak és landing page-ek fejlesztésével foglalkozom, miközben a hardver és szoftver határterületein alkotok: az automatizálás, a mikrokontrollerek és a robotika világa hajt.
+                </p>
+                <div class="hero-cta">
+                    <a href="#projects" class="btn btn-primary">Projektek megtekintése</a>
+                    <a href="#contact" class="btn btn-secondary">Kapcsolat</a>
+                </div>
             </div>
+        </header>
 
-            <div class="project-card">
-                <div class="card-icon">🤖</div>
-                <h3>Robotkar & Robotika</h3>
-                <p>Saját fejlesztésű robotkarok és autonóm robotok tervezése, mechanikai összeszerelése és programozása.</p>
+        <section id="projects">
+            <div class="section-container">
+                <h2 class="section-title">Futó Projektek & Kompetenciák</h2>
+                <div class="project-grid">
+                    
+                    <div class="project-card">
+                        <div class="card-icon">💻</div>
+                        <h3>Webfejlesztés</h3>
+                        <p>Modern, letisztult landing page-ek és reszponzív weboldalak tervezése és kódolása a legújabb technológiákkal.</p>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="card-icon">🤖</div>
+                        <h3>Robotkar & Robotika</h3>
+                        <p>Saját fejlesztésű robotkarok és autonóm robotok tervezése, mechanikai összeszerelése és programozása.</p>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="card-icon">⚡</div>
+                        <h3>Elektronika & Beágyazott rendszerek</h3>
+                        <p>Mikrovezérlős (Arduino, ESP32, STM32) áramkörök tervezése, szenzorok integrálása és hardverközeli kódolás.</p>
+                    </div>
+
+                    <div class="project-card">
+                        <div class="card-icon">⚙️</div>
+                        <h3>Ipari Automatizálás</h3>
+                        <p>Folyamatok automatizálása, szenzoros visszacsatolások és okos rendszerek összehangolása.</p>
+                    </div>
+
+                </div>
             </div>
+        </section>
 
-            <div class="project-card">
-                <div class="card-icon">⚡</div>
-                <h3>Elektronika & Beágyazott rendszerek</h3>
-                <p>Mikrovezérlős (Arduino, ESP32, STM32) áramkörök tervezése, szenzorok integrálása és hardverközeli kódolás.</p>
+        <section id="contact">
+            <div class="section-container">
+                <h2 class="section-title">Indítsunk egy közös projektet</h2>
+                <p class="contact-desc">Legyen szó weboldal tervezésről, automatizálásról vagy elektronikai ötletről, keress bizalommal!</p>
+                
+                <div class="contact-info">
+                    <a href="mailto:gergobodnar754@gmail.com" class="contact-item">
+                        <span class="icon">✉️</span> gergobodnar754@gmail.com
+                    </a>
+                    <a href="tel:+36309686577" class="contact-item">
+                        <span class="icon">📞</span> +36 30 968 6577
+                    </a>
+                </div>
             </div>
+        </section>
 
-            <div class="project-card">
-                <div class="card-icon">⚙️</div>
-                <h3>Ipari Automatizálás</h3>
-                <p>Folyamatok automatizálása, szenzoros visszacsatolások és okos rendszerek összehangolása.</p>
-            </div>
+        <footer>
+            <p>© 2026 Bodnár Gergő Zsolt. Minden jog fenntartva.</p>
+        </footer>
 
-        </div>
-    </section>
+    </div>
 
-    <!-- Kapcsolat szekció -->
-    <section id="contact">
-        <h2 class="section-title">Indítsunk egy közös projektet</h2>
-        <p>Legyen szó weboldal tervezésről, automatizálásról vagy elektronikai ötletről, keress bizalommal!</p>
-        
-        <div class="contact-info">
-            <a href="mailto:gergobodnar754@gmail.com" class="contact-item">
-                <span class="icon">✉️</span> gergobodnar754@gmail.com
-            </a>
-            <a href="tel:+36309686577" class="contact-item">
-                <span class="icon">📞</span> +36 30 968 6577
-            </a>
-        </div>
-    </section>
-
-    <!-- Lábléc -->
-    <footer>
-        <p>© 2026 Bodnár Gergő Zsolt. Minden jog fenntartva.</p>
-    </footer>
-
-    <!-- Mozgó háttér script -->
     <script>
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
 
         let particlesArray;
 
-        // Canvas méretezése
         function setCanvasSize() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -106,7 +108,6 @@
             init();
         });
 
-        // Részecske osztály
         class Particle {
             constructor(x, y, directionX, directionY, size, color) {
                 this.x = x;
@@ -131,23 +132,21 @@
             }
         }
 
-        // Inicializálás
         function init() {
             particlesArray = [];
-            let numberOfParticles = (canvas.width * canvas.height) / 15000; // Sűrűség beállítása
+            let numberOfParticles = (canvas.width * canvas.height) / 18000; 
             for (let i = 0; i < numberOfParticles; i++) {
                 let size = (Math.random() * 2) + 0.5;
                 let x = Math.random() * (innerWidth - size * 2) + size;
                 let y = Math.random() * (innerHeight - size * 2) + size;
-                let directionX = (Math.random() * 0.4) - 0.2; // Lassú mozgás
-                let directionY = (Math.random() * 0.4) - 0.2;
-                let color = 'rgba(0, 242, 254, 0.25)'; // Halvány neon kék
+                let directionX = (Math.random() * 0.3) - 0.15; 
+                let directionY = (Math.random() * 0.3) - 0.15;
+                let color = 'rgba(0, 242, 254, 0.2)'; 
 
                 particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
             }
         }
 
-        // Animációs ciklus
         function animate() {
             requestAnimationFrame(animate);
             ctx.clearRect(0, 0, innerWidth, innerHeight);
@@ -158,7 +157,6 @@
             connect();
         }
 
-        // Vonalak rajzolása a közeli részecskék közé (háló effektus)
         function connect() {
             let opacityValue = 1;
             for (let a = 0; a < particlesArray.length; a++) {
@@ -166,8 +164,8 @@
                     let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x))
                     + ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
                     if (distance < (canvas.width / 7) * (canvas.height / 7)) {
-                        opacityValue = 1 - (distance / 12000);
-                        ctx.strokeStyle = `rgba(79, 70, 229, ${opacityValue * 0.15})`; // Halvány lila vonalak
+                        opacityValue = 1 - (distance / 15000);
+                        ctx.strokeStyle = `rgba(79, 70, 229, ${opacityValue * 0.12})`; 
                         ctx.lineWidth = 1;
                         ctx.beginPath();
                         ctx.moveTo(particlesArray[a].x, particlesArray[a].y);

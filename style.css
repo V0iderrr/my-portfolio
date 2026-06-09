@@ -1,42 +1,59 @@
-/* Globális beállítások sötét módhoz */
+/* Globális sötét alapok */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     scroll-behavior: smooth;
 }
 
 body {
-    background-color: #0b0f19; /* Mélysötét háttér */
-    color: #e2e8f0; /* Világosszürke olvasható szöveg */
+    background-color: #070a13;
+    color: #e2e8f0;
     overflow-x: hidden;
 }
 
-/* Canvas fixálása a háttérben */
+/* FIX: A háttér canvas teljesen hátul van és nem zavar be a kattintásokba */
 #bg-canvas {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    z-index: -1;
-    background: radial-gradient(circle at 50% 50%, #111827 0%, #0b0f19 100%);
+    z-index: -2;
+    background: radial-gradient(circle at 50% 50%, #0f1424 0%, #070a13 100%);
+    pointer-events: none;
+}
+
+/* Tartalom burkoló réteg, ami a háttér felett fekszik */
+.page-wrapper {
+    position: relative;
+    z-index: 1;
+}
+
+/* FIX: Szövegdobozok szélességének korlátozása (nem engedi faltól falig futni) */
+.nav-container, .hero-content, .section-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
 }
 
 /* Navigáció */
 nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 25px 8%;
-    background-color: rgba(11, 15, 25, 0.7);
-    backdrop-filter: blur(12px); /* Elmosott üveg hatás */
+    background-color: rgba(7, 10, 19, 0.75);
+    backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     position: sticky;
     top: 0;
     z-index: 100;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 20px 5%;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 nav .logo {
@@ -47,7 +64,7 @@ nav .logo {
 }
 
 nav .logo span {
-    color: #00f2fe; /* Cyber kék */
+    color: #00f2fe;
 }
 
 nav ul {
@@ -64,46 +81,45 @@ nav ul li a {
     color: #94a3b8;
     font-weight: 500;
     font-size: 0.95rem;
-    transition: color 0.3s, text-shadow 0.3s;
+    transition: color 0.3s;
 }
 
 nav ul li a:hover {
     color: #00f2fe;
-    text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
 }
 
 /* Hero szekció */
 header {
-    min-height: 90vh;
+    min-height: 85vh;
     display: flex;
     align-items: center;
-    padding: 0 8%;
+    padding: 60px 5%;
 }
 
 .hero-content {
-    max-width: 750px;
+    max-width: 700px; /* Szűkebb szövegdoboz a jobb olvashatóságért */
 }
 
 .tagline {
     color: #00f2fe;
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-bottom: 15px;
 }
 
 .hero-content h1 {
-    font-size: 4rem;
+    font-size: 3.8rem;
     font-weight: 800;
     color: #ffffff;
-    line-height: 1.1;
+    line-height: 1.15;
     margin-bottom: 25px;
     letter-spacing: -1px;
 }
 
 .hero-content .description {
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     color: #94a3b8;
     line-height: 1.7;
     margin-bottom: 40px;
@@ -121,7 +137,7 @@ header {
 
 .btn {
     display: inline-block;
-    padding: 14px 30px;
+    padding: 14px 28px;
     border-radius: 6px;
     font-weight: 600;
     font-size: 0.95rem;
@@ -132,71 +148,67 @@ header {
 .btn-primary {
     background: linear-gradient(135deg, #4f46e5 0%, #00f2fe 100%);
     color: #ffffff;
-    box-shadow: 0 4px 20px rgba(0, 242, 254, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 242, 254, 0.15);
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 25px rgba(0, 242, 254, 0.4);
+    box-shadow: 0 6px 20px rgba(0, 242, 254, 0.3);
 }
 
 .btn-secondary {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.03);
     color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .btn-secondary:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.08);
     transform: translateY(-2px);
 }
 
-/* Szekció közös elemek */
+/* Szekciók elrendezése */
 #projects, #contact {
-    padding: 100px 8%;
+    padding: 80px 5%;
 }
 
 .section-title {
-    font-size: 2.2rem;
+    font-size: 2rem;
     color: #ffffff;
-    margin-bottom: 50px;
-    position: relative;
+    margin-bottom: 45px;
     font-weight: 700;
 }
 
-/* Projekt kártyák (Minimalista sötét) */
+/* Projekt kártyák */
 .project-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 25px;
 }
 
 .project-card {
-    background-color: rgba(17, 24, 39, 0.45);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 35px;
+    background-color: rgba(15, 20, 36, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 30px;
     border-radius: 8px;
     transition: all 0.3s ease;
-    backdrop-filter: blur(5px);
 }
 
 .project-card:hover {
-    transform: translateY(-5px);
-    border-color: rgba(0, 242, 254, 0.3);
-    background-color: rgba(17, 24, 39, 0.7);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transform: translateY(-4px);
+    border-color: rgba(0, 242, 254, 0.25);
+    background-color: rgba(15, 20, 36, 0.8);
 }
 
 .card-icon {
-    font-size: 2rem;
-    margin-bottom: 20px;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
 }
 
 .project-card h3 {
     color: #ffffff;
-    font-size: 1.3rem;
-    margin-bottom: 12px;
-    font-weight: 600;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
 }
 
 .project-card p {
@@ -205,36 +217,35 @@ header {
     line-height: 1.6;
 }
 
-/* Kapcsolat szekció */
-#contact {
+/* Kapcsolat szekció középre igazítva */
+#contact .section-container {
     text-align: center;
-    max-width: 800px;
-    margin: 0 auto;
+    max-width: 650px; /* Szűkített tartalom */
 }
 
-#contact p {
+.contact-desc {
     color: #94a3b8;
     font-size: 1.1rem;
-    margin-bottom: 40px;
+    margin-bottom: 35px;
+    line-height: 1.6;
 }
 
 .contact-info {
     display: flex;
     justify-content: center;
-    gap: 40px;
+    gap: 25px;
     flex-wrap: wrap;
 }
 
 .contact-item {
     text-decoration: none;
     color: #ffffff;
-    font-size: 1.2rem;
-    font-weight: 500;
+    font-size: 1.1rem;
     display: flex;
     align-items: center;
     gap: 10px;
-    transition: color 0.3s;
-    padding: 10px 20px;
+    transition: all 0.3s;
+    padding: 12px 24px;
     border-radius: 6px;
     background-color: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.05);
@@ -243,35 +254,31 @@ header {
 .contact-item:hover {
     color: #00f2fe;
     border-color: rgba(0, 242, 254, 0.2);
-    background-color: rgba(0, 242, 254, 0.05);
-}
-
-.contact-item .icon {
-    font-size: 1.4rem;
+    background-color: rgba(0, 242, 254, 0.04);
 }
 
 /* Lábléc */
 footer {
     text-align: center;
     padding: 40px;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    color: #64748b;
-    font-size: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    color: #475569;
+    font-size: 0.85rem;
+    margin-top: 50px;
 }
 
-/* Reszponzivitás (Mobil nézet) */
+/* Reszponzivitás mobilon */
 @media (max-width: 768px) {
     .hero-content h1 {
-        font-size: 2.8rem;
+        font-size: 2.6rem;
     }
     nav ul {
-        display: none; /* Mobilon a menü elrejthető, vagy fejleszthető hamburger menüvé */
+        display: none; 
     }
     .hero-cta {
         flex-direction: column;
     }
     .contact-info {
         flex-direction: column;
-        gap: 15px;
     }
 }
