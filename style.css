@@ -1,15 +1,27 @@
-/* Alapbeállítások */
+/* Globális beállítások sötét módhoz */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     scroll-behavior: smooth;
 }
 
 body {
-    background-color: #f8f9fa;
-    color: #333;
+    background-color: #0b0f19; /* Mélysötét háttér */
+    color: #e2e8f0; /* Világosszürke olvasható szöveg */
+    overflow-x: hidden;
+}
+
+/* Canvas fixálása a háttérben */
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    background: radial-gradient(circle at 50% 50%, #111827 0%, #0b0f19 100%);
 }
 
 /* Navigáció */
@@ -17,18 +29,25 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 10%;
-    background-color: #ffffff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    padding: 25px 8%;
+    background-color: rgba(11, 15, 25, 0.7);
+    backdrop-filter: blur(12px); /* Elmosott üveg hatás */
+    -webkit-backdrop-filter: blur(12px);
     position: sticky;
     top: 0;
     z-index: 100;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 nav .logo {
-    font-weight: bold;
-    font-size: 1.5rem;
-    color: #4f46e5;
+    font-weight: 700;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    color: #fff;
+}
+
+nav .logo span {
+    color: #00f2fe; /* Cyber kék */
 }
 
 nav ul {
@@ -37,127 +56,222 @@ nav ul {
 }
 
 nav ul li {
-    margin-left: 20px;
+    margin-left: 30px;
 }
 
 nav ul li a {
     text-decoration: none;
-    color: #555;
+    color: #94a3b8;
     font-weight: 500;
-    transition: color 0.3s;
+    font-size: 0.95rem;
+    transition: color 0.3s, text-shadow 0.3s;
 }
 
 nav ul li a:hover {
-    color: #4f46e5;
+    color: #00f2fe;
+    text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
 }
 
 /* Hero szekció */
 header {
-    height: 80vh;
+    min-height: 90vh;
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
-    background: linear-gradient(135deg, #e0e7ff 0%, #ffffff 100%);
+    padding: 0 8%;
+}
+
+.hero-content {
+    max-width: 750px;
+}
+
+.tagline {
+    color: #00f2fe;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
 }
 
 .hero-content h1 {
-    font-size: 3.5rem;
-    margin-bottom: 10px;
+    font-size: 4rem;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.1;
+    margin-bottom: 25px;
+    letter-spacing: -1px;
 }
 
-.hero-content h1 span {
-    color: #4f46e5;
-}
-
-.hero-content p {
+.hero-content .description {
     font-size: 1.2rem;
-    color: #666;
-    margin-bottom: 30px;
+    color: #94a3b8;
+    line-height: 1.7;
+    margin-bottom: 40px;
+}
+
+.hero-content .description strong {
+    color: #ffffff;
+}
+
+/* Gombok */
+.hero-cta {
+    display: flex;
+    gap: 20px;
 }
 
 .btn {
     display: inline-block;
-    padding: 12px 30px;
-    background-color: #4f46e5;
-    color: white;
+    padding: 14px 30px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
     text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background 0.3s;
+    transition: all 0.3s ease;
 }
 
-.btn:hover {
-    background-color: #4338ca;
+.btn-primary {
+    background: linear-gradient(135deg, #4f46e5 0%, #00f2fe 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 242, 254, 0.2);
 }
 
-/* Projektek */
-#projects {
-    padding: 80px 10%;
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 242, 254, 0.4);
 }
 
-#projects h2 {
-    text-align: center;
-    margin-bottom: 40px;
-    font-size: 2rem;
+.btn-secondary {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Szekció közös elemek */
+#projects, #contact {
+    padding: 100px 8%;
+}
+
+.section-title {
+    font-size: 2.2rem;
+    color: #ffffff;
+    margin-bottom: 50px;
+    position: relative;
+    font-weight: 700;
+}
+
+/* Projekt kártyák (Minimalista sötét) */
 .project-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
 }
 
 .project-card {
-    background-color: white;
-    padding: 30px;
+    background-color: rgba(17, 24, 39, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 35px;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    transition: transform 0.3s;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
 }
 
 .project-card:hover {
     transform: translateY(-5px);
+    border-color: rgba(0, 242, 254, 0.3);
+    background-color: rgba(17, 24, 39, 0.7);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.card-icon {
+    font-size: 2rem;
+    margin-bottom: 20px;
 }
 
 .project-card h3 {
-    margin-bottom: 15px;
-    color: #111;
+    color: #ffffff;
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    font-weight: 600;
 }
 
 .project-card p {
-    color: #666;
-    margin-bottom: 20px;
+    color: #94a3b8;
+    font-size: 0.95rem;
     line-height: 1.6;
 }
 
-.project-link {
-    text-decoration: none;
-    color: #4f46e5;
-    font-weight: bold;
-}
-
-/* Kapcsolat */
+/* Kapcsolat szekció */
 #contact {
-    padding: 80px 10%;
     text-align: center;
-    background-color: #ffffff;
-}
-
-#contact h2 {
-    margin-bottom: 20px;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 #contact p {
-    color: #666;
-    margin-bottom: 30px;
+    color: #94a3b8;
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+}
+
+.contact-info {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.contact-item {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: color 0.3s;
+    padding: 10px 20px;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.contact-item:hover {
+    color: #00f2fe;
+    border-color: rgba(0, 242, 254, 0.2);
+    background-color: rgba(0, 242, 254, 0.05);
+}
+
+.contact-item .icon {
+    font-size: 1.4rem;
 }
 
 /* Lábléc */
 footer {
     text-align: center;
-    padding: 30px;
-    background-color: #111;
-    color: #aaa;
+    padding: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    color: #64748b;
     font-size: 0.9rem;
+}
+
+/* Reszponzivitás (Mobil nézet) */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 2.8rem;
+    }
+    nav ul {
+        display: none; /* Mobilon a menü elrejthető, vagy fejleszthető hamburger menüvé */
+    }
+    .hero-cta {
+        flex-direction: column;
+    }
+    .contact-info {
+        flex-direction: column;
+        gap: 15px;
+    }
 }
